@@ -1,5 +1,26 @@
 // Acá parte la Magia!
-let token;
+
+async function init() {
+  const token = localStorage.getItem('token')
+  if (token == null) {
+    return
+  }
+  // en el caso de que token SI exista en localStorage, entonces 
+  // vamos a pasar altiro a la tabla de posteos
+
+  // Ahora vamos a buscar los Posteos
+  getPosts(token)
+}
+init();
+
+$('#salir').on('click', function () {
+  localStorage.removeItem('token')
+  // Escondemos el formulario
+  $('#div-form').removeClass('d-none').addClass('d-block')
+  // Mostramos la tabla
+  $('#div-tabla').removeClass('d-block').addClass('d-none')
+})
+
 
 $('#js-form').on('submit', async function (ev) {
   // primero evitamos que se recargue la pagina
@@ -16,8 +37,14 @@ $('#js-form').on('submit', async function (ev) {
   const jwt = await data.json()
 
   // guardamos el token en una variable
-  token = jwt.token
-  
+  const token = jwt.token
+  console.log(token)
+  localStorage.setItem('token', token)
+
+  getPosts(token) 
+})
+
+async function getPosts(token) {
   // Ahora vamos a buscar los Posteos
   const data2 = await fetch('/api/posts', {
     headers: {
@@ -26,10 +53,10 @@ $('#js-form').on('submit', async function (ev) {
   })
   const respuesta = await data2.json()
   const posts = respuesta.data
-
-  console.log(posts)
+  
   llenarTabla(posts)
-})
+}
+
 
 function llenarTabla(posts) {
   // primero llenamos la tabla con la info de los POSTS
@@ -39,12 +66,6 @@ function llenarTabla(posts) {
       <tr><td>${post.id}</td><td>${post.title}</td><td>${post.body}</td><td></td></tr>
     `)
   }
-  /* FORMA mas PRO de llenar la tabla
-  $('#post-table').html(
-    posts.map(
-      post => `<tr><td>${post.id}</td><td>${post.title}</td><td>${post.body}</td><td></td></tr>`)
-    .join('')
-  ) */
 
   // Escondemos el formulario
   $('#div-form').removeClass('d-block').addClass('d-none')
