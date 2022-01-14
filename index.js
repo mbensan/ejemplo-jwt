@@ -35,6 +35,22 @@ app.get('/covid19', (req, res) => {
     res.sendFile(path.join(__dirname+'/public/covid19/index.html'))
 });
 
+// <regiones>
+app.get('/regiones', (req, res) => {
+    res.sendFile(path.join(__dirname+'/public/regiones/index.html'))
+});
+
+const fs = require('fs');
+
+let rawdata = fs.readFileSync('regiones.json');
+const regiones = JSON.parse(rawdata)
+console.log(regiones)
+
+app.get('/api/regiones', (req, res) => {
+    res.json(regiones)
+});
+
+// </regiones>
 app.listen(3000,() => {
     console.log(`Listening server in http://localhost:3000`)
 })

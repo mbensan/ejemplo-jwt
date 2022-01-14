@@ -22,6 +22,7 @@ $('#salir').on('click', function () {
 })
 
 
+// <Ingrid>
 $('#js-form').on('submit', async function (ev) {
   // primero evitamos que se recargue la pagina
   ev.preventDefault();
@@ -43,7 +44,7 @@ $('#js-form').on('submit', async function (ev) {
 
   getPosts(token) 
 })
-
+// </Ingrid>
 async function getPosts(token) {
   // Ahora vamos a buscar los Posteos
   const data2 = await fetch('/api/posts', {
