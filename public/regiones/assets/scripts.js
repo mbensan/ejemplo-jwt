@@ -33,27 +33,28 @@ function dibujarGrafico(regiones) {
   chart.render();
 }
 
-
 $('#form-card').on('submit', function (ev) {
   ev.preventDefault();
   
   const name = $('#name').val()
   const image = $('#image').val()
-
+  
   $('.bg-perros').append(`
   <div class="col-4">
-    <div class="card" style="width: 18rem;">
-      <img src="${image}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">${name}</h5>
+  <div class="card" style="width: 18rem;">
+  <img src="${image}" class="card-img-top" alt="...">
+  <div class="card-body">
+  <h5 class="card-title">${name}</h5>
         <button class="btn btn-primary btn-saludar" data-name="${name}">Saludar</button>
       </div>
-    </div>
+      </div>
   </div>
   `)
 })
 
+// <matias>
 $(document).on('click', '.btn-saludar', function() {
   const name = $(this).attr('data-name')
   alert(`Veeenga venga venga ${name}`)
 })
+// </matias>
