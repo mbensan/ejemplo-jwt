@@ -55,6 +55,10 @@ $('#form-card').on('submit', function (ev) {
 // <matias>
 $(document).on('click', '.btn-saludar', function() {
   const name = $(this).attr('data-name')
-  alert(`Veeenga venga venga ${name}`)
+  Swal.fire(
+    'Llamando ...',
+    `Veeenga venga venga ${name}`,
+    'success'
+  )
 })
 // </matias>
